@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/generate.yml'
+  pull_request:
+    paths:
+      - '.github/workflows/generate.yml'
+name: make website
+jobs:
+  yarn build:
+    name: yarn && yarn run dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{secrets.GLOBAL_PAT}}
+
+      - name: yarn && yarn run dev
+        run: |
+          yarn && yarn run dev
+        shell: bash
